@@ -15,5 +15,5 @@ primary_region = "ams"
   processes = ["app"]
 
 [mounts]
-source="lucius-v-database"
+source="lucius_v_database"
 destination="/db"
