@@ -6,7 +6,7 @@ use crate::utils::get_random_number;
 pub fn get_message() -> String {
   let mut database = db::connect();
   let rng = get_random_number(0, 10);
-  if rng == 0 {
+  if rng != 1 {
     let mut chain = Chain::new();
     let messages = database.get_all_messages();
 
