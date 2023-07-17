@@ -112,7 +112,7 @@ async fn main() {
     })
     .token(std::env::var("DISCORD_TOKEN").expect("missing DISCORD_TOKEN"))
     .intents(serenity::GatewayIntents::non_privileged() | serenity::GatewayIntents::MESSAGE_CONTENT)
-    .setup(|ctx, _ready, framework| {
+    .setup(|ctx, _ready, _framework| {
       Box::pin(async move {
         ctx.set_activity(Activity::playing("Praise the crab :crab:")).await;
         println!("{} is now online!", _ready.user.name);
