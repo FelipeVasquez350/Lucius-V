@@ -39,6 +39,9 @@ pub async fn bruh(
   ctx: Context<'_>, 
 ) -> Result<(), Error> {
   let msg = get_message();
-  ctx.say(msg).await?;
+  ctx.send(|m| 
+    m.content(msg)
+     .allowed_mentions(|am| am.empty_parse())
+  ).await?;
   Ok(())
 }
