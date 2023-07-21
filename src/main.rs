@@ -8,14 +8,13 @@ mod admin_commands {
   pub mod sync;
   pub mod register;
   pub mod interval;
-  pub mod filters;
 }
 
 pub mod utils;
 
 use commands::{status, bruh, help};
 
-use admin_commands::{sync, register, interval, filters};
+use admin_commands::{sync, register, interval};
 
 pub mod database;
 
@@ -108,7 +107,6 @@ async fn main() {
         help::help(), 
         sync::sync(), 
         interval::set_interval(),
-        filters::set_filter(),
         ],
       ..Default::default()
     })

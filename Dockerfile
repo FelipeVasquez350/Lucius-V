@@ -1,7 +1,7 @@
 FROM rust:latest as builder
 
 WORKDIR /usr/src/app
-COPY Cargo.lock Cargo.toml ./
+COPY Cargo.toml ./
 COPY src ./src
 
 # Will build and cache the binary and dependent crates in release mode
