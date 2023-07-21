@@ -1,21 +1,23 @@
 FROM rust:latest as builder
 
 WORKDIR /usr/src/app
-COPY . .
+COPY Cargo.lock Cargo.toml ./
+COPY src ./src
+
 # Will build and cache the binary and dependent crates in release mode
 RUN --mount=type=cache,target=/usr/local/cargo,from=rust:latest,source=/usr/local/cargo \
     --mount=type=cache,target=target \
-    cargo run --bin decrypt_db \
     cargo build --release && mv ./target/release/lucius-v ./lucius-v
 
 # Runtime image
-FROM debian:bullseye-slim
+FROM debian:bullseye-slim 
 
 # Run as "app" user
 RUN useradd -ms /bin/bash app
 RUN apt-get -y update
 RUN apt-get -y upgrade
 RUN apt-get install -y sqlite3 libsqlite3-dev
+RUN apt-get install -y ca-certificates tzdata && rm -rf /var/lib/apt/lists/*
 
 USER app
 WORKDIR /app
@@ -24,4 +26,5 @@ WORKDIR /app
 COPY --from=builder /usr/src/app/lucius-v /app/lucius-v
 
 # Run the app
-CMD ./lucius-v
+
+CMD ["./lucius-v"]

@@ -1,4 +1,4 @@
-use crate::{Context, Error, db};
+use crate::{Context, Error, database};
 
 /// set the interval range for the bot to send messages
 #[poise::command(slash_command, required_permissions = "ADMINISTRATOR")]
@@ -10,7 +10,7 @@ pub async fn set_interval(
     max: u32,
 ) -> Result<(), Error> {
     ctx.data().lock().set_bounds(min, max);
-    match db::connect().set_guild_config(&ctx.guild_id().unwrap().to_string(), min, max) {
+    match database::connect().set_guild_config(&ctx.guild_id().unwrap().to_string(), min, max) {
         Ok(_) => {},
         Err(e) => println!("Error setting guild config: {}", e),
     }

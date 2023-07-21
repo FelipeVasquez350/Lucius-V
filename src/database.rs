@@ -94,4 +94,27 @@ impl Database {
     
     Ok(settings)
   }  
+
+  pub fn set_filter(&mut self, filter: &str) -> Result<(), rusqlite::Error> {
+    let connection = Connection::open(&self.db_path)?;
+    let query: &str = "INSERT INTO filters (filter) VALUES (?1);" ;
+    connection.execute(query, params![filter])?;
+    let result = connection.close();
+    match result {
+      Ok(_) => println!("Closed successfully"),
+      Err(e) => println!("Error closing: {:?}", e),
+    }
+    Ok(())
+  }
+
+  pub fn get_filters(&mut self) -> Result<Vec<String>, rusqlite::Error> {
+    let connection = Connection::open(&self.db_path)?;
+    let query: &str = "SELECT * FROM filters;" ;
+    let mut statement = connection.prepare(query)?;
+    let filters = statement.query_map([], |row| {
+      row.get::<_, String>(0)   
+    })?.map(|r| r.unwrap()).collect();
+
+    Ok(filters)
+  }
 }

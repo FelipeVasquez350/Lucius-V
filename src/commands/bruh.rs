@@ -1,10 +1,10 @@
 use crate::{Context, Error};
-use crate::db;
+use crate::database;
 use markov::Chain;
 use crate::utils::get_random_number;
 
 pub fn get_message() -> String {
-  let mut database = db::connect();
+  let mut database = database::connect();
   let rng = get_random_number(0, 10);
   if rng != 1 {
     let mut chain = Chain::new();

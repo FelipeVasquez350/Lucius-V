@@ -30,7 +30,7 @@ pub async fn sync(
     }
 
     for message in messages {
-      let mut database = crate::db::connect();
+      let mut database = crate::database::connect();
       let reg = Regex::new(r"(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])").unwrap();
       let is_link = reg.is_match(&message.content);
       let msg = if is_link {

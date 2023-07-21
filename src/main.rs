@@ -8,18 +8,19 @@ mod admin_commands {
   pub mod sync;
   pub mod register;
   pub mod interval;
+  pub mod filters;
 }
 
 pub mod utils;
 
 use commands::{status, bruh, help};
 
-use admin_commands::{sync, register, interval};
+use admin_commands::{sync, register, interval, filters};
 
-pub mod db;
+pub mod database;
 
 mod events;
-use db::ServerConfig;
+use database::ServerConfig;
 use events::event_handler;
 
 use dotenv::dotenv;
@@ -106,7 +107,8 @@ async fn main() {
         bruh::bruh(), 
         help::help(), 
         sync::sync(), 
-        interval::set_interval()
+        interval::set_interval(),
+        filters::set_filter(),
         ],
       ..Default::default()
     })
@@ -116,7 +118,7 @@ async fn main() {
       Box::pin(async move {
         ctx.set_activity(Activity::playing("Praise the crab :crab:")).await;
         println!("{} is now online!", _ready.user.name);
-        let config = db::connect().get_guild_config("1102689880821219368");
+        let config = database::connect().get_guild_config("1102689880821219368");
         match config {
           Ok(config) => {         
             Ok(Data::new(config))

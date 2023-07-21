@@ -1,7 +1,7 @@
 use crate::{Context, Error};
 
 /// Sync the guild/global commands
-#[poise::command(prefix_command, slash_command, required_permissions = "ADMINISTRATOR")]
+#[poise::command(prefix_command, slash_command)]
 pub async fn register(
   ctx: Context<'_>
 ) -> Result<(), Error> {

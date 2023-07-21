@@ -1,7 +1,7 @@
 use crate::commands::bruh::get_message;
 use crate::{PrefixContext, Error};
-use crate::db;
-use db::connect;
+use crate::database;
+use database::connect;
 use poise::serenity_prelude::UserId;
 use crate::utils::get_random_number;
 use regex::Regex;
