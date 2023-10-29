@@ -16,6 +16,7 @@ FROM debian:stable-slim
 RUN useradd -ms /bin/bash lucius
 RUN apt-get -y update
 RUN apt-get -y upgrade
+RUN apt-get install -y iputils-ping  wget curl
 RUN apt-get install -y sqlite3 libsqlite3-dev
 RUN apt-get install -y ca-certificates tzdata && rm -rf /var/lib/apt/lists/*
 
