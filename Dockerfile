@@ -27,4 +27,4 @@ COPY --from=builder /usr/src/app/lucius-v /home/lucius/lucius-v
 
 # Run the app
 
-CMD ["./lucius-v"]
+CMD ["/bin/bash"]
